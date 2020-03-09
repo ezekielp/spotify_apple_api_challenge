@@ -1010,3 +1010,5 @@ for (let i = 0; i < numOfTracks; i++) {
   let currentTrackISRC = currentTrack.track.external_ids.isrc;
   console.log(currentTrackISRC);
 }
+
+exports.tracks = sampleJSONResponse2;

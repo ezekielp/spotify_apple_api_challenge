@@ -192,7 +192,7 @@ for (let i = 0; i < tracks.length; i++) {
   console.log(currentTrackISRC);
 }
 
-
+exports.tracks = sampleAppleJSONRes;
 // .data: [{
 //   relationships: {
 //     tracks: [
