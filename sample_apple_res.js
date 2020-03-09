@@ -187,10 +187,10 @@ const sampleAppleJSONRes = {
 
 const tracks = sampleAppleJSONRes.data[0].relationships.tracks.data;
 
-for (let i = 0; i < tracks.length; i++) {
-  let currentTrackISRC = tracks[i].attributes.isrc;
-  console.log(currentTrackISRC);
-}
+// for (let i = 0; i < tracks.length; i++) {
+//   let currentTrackISRC = tracks[i].attributes.isrc;
+//   console.log(currentTrackISRC);
+// }
 
 exports.tracks = sampleAppleJSONRes;
 // .data: [{

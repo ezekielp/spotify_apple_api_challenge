@@ -1005,10 +1005,10 @@ const sampleJSONResponse2 = {
 
 const numOfTracks = sampleJSONResponse2.tracks.items.length;
 
-for (let i = 0; i < numOfTracks; i++) {
-  let currentTrack = sampleJSONResponse2.tracks.items[i];
-  let currentTrackISRC = currentTrack.track.external_ids.isrc;
-  console.log(currentTrackISRC);
-}
+// for (let i = 0; i < numOfTracks; i++) {
+//   let currentTrack = sampleJSONResponse2.tracks.items[i];
+//   let currentTrackISRC = currentTrack.track.external_ids.isrc;
+//   console.log(currentTrackISRC);
+// }
 
 exports.tracks = sampleJSONResponse2;
