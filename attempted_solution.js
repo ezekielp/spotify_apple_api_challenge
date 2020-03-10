@@ -1,44 +1,11 @@
-// const spotifyPlaylist = require('./sample_spotify_res');
-// const applePlaylist = require('./sample_apple_res');
-const playlistAPIUtil = require('./playlist_api_util');
-
-const fetchRandomData = async () => {
-
-  try {
-
-    const todoRes = fetch(
-      "https://jsonplaceholder.typicode.com/todos/1"
-    );
-    const postRes = fetch("https://jsonplaceholder.typicode.com/posts/1");
-
-    const todo = await todoRes;
-    const post = await postRes;
-    // const todo = await todoRes.json();
-    // const post = await postRes.json();
-
-    return [await todo.json(), await post.json()];
-
-    // return await Promise.all([
-    //   fetch("https://jsonplaceholder.typicode.com/todos/1").then(res =>
-    //     res.json()
-    //   ),
-    //   fetch("https://jsonplaceholder.typicode.com/posts/1").then(res =>
-    //     res.json()
-    //   )
-    // ]);
-
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-
-}
+const { fetchApplePlaylist, fetchSpotifyPlaylist } = require('./playlist_api_util');
 
 const tracksInCommon = async (spotifyPlaylistId, applePlaylistId) => {
 
+  // Fetch each playlist in parallel
   const [spotifyPlaylist, applePlaylist] = await Promise.all([
-    playlistAPIUtil.fetchSpotifyPlaylist(spotifyPlaylistId),
-    playlistAPIUtil.fetchApplePlaylist(applePlaylistId)
+    fetchSpotifyPlaylist(spotifyPlaylistId),
+    fetchApplePlaylist(applePlaylistId)
   ]);
 
   // Error-handling in case either API request fails
@@ -46,19 +13,12 @@ const tracksInCommon = async (spotifyPlaylistId, applePlaylistId) => {
     console.log("fetchSpotifyPlaylist return value:", spotifyPlaylist);
     console.log("fetchApplePlaylist return value:", applePlaylist);
     return null;
-  }
-
-  // const [randomTodo, randomPost] = await Promise.all([
-    //   playlistAPIUtil.fetchRandomTodo(),
-    //   playlistAPIUtil.fetchRandomPost()
-    // ]);
-
-    // console.log(randomTodo);
-    // console.log(randomPost);
+  };
 
   const spotifyTracks = spotifyPlaylist.tracks.items;
   const spotifyTracksISRCs = new Set();
 
+  // Add each track's ISRC to the set created above
   spotifyTracks.forEach(spotifyTrack => {
     spotifyTracksISRCs.add(spotifyTrack.track.external_ids.isrc);
   })
@@ -67,6 +27,7 @@ const tracksInCommon = async (spotifyPlaylistId, applePlaylistId) => {
   
   let count = 0;
 
+  // Check how many tracks in the Apple playlist are in the Spotify ISRC set
   appleTracks.forEach(appleTrack => {
     if (spotifyTracksISRCs.has(appleTrack.attributes.isrc)) {
       count++;
@@ -78,10 +39,3 @@ const tracksInCommon = async (spotifyPlaylistId, applePlaylistId) => {
 }
 
 tracksInCommon('214235', '325235234');
-
-
-
-
-
-
-

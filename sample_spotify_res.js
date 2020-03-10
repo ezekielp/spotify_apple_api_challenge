@@ -1003,4 +1003,4 @@ const sampleSpotifyResponse = {
     "uri": "spotify:playlist:3cEYpjA9oz9GiPac4AsH4n"
 }
 
-exports.tracks = sampleSpotifyResponse;
+module.exports = { sampleSpotifyResponse };
