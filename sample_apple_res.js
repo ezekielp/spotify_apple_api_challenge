@@ -185,4 +185,4 @@ const sampleAppleResponse = {
   ]
 }
 
-module.exports = { sampleAppleResponse };
+module.exports = sampleAppleResponse;

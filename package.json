@@ -4,7 +4,7 @@
   "description": "",
   "main": "attempted_solution.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "homepage": "https://github.com/ezekielp/spotify_apple_api_challenge#readme",
   "dependencies": {
     "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0"
   }
 }

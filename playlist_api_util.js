@@ -7,7 +7,6 @@ const fetchSpotifyPlaylist = async playlistId => {
     );
 
     return await response.json();
-    
   } catch(err) {
     console.log(err);
     return null;
@@ -21,29 +20,6 @@ const fetchApplePlaylist = async playlistId => {
     );
 
     return await response.json();
-
-  } catch(err) {
-    console.log(err);
-    return null;
-  }
-}
-
-const fetchRandomTodo = async () => {
-  try {
-    const response = await fetch(
-      "https://jsonplaceholder.typicode.com/todos/1"
-    );
-    return await response.json();
-  } catch(err) {
-    console.log(err);
-    return null;
-  }
-}
-
-const fetchRandomPost = async () => {
-  try {
-    const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
-    return await response.json();
   } catch(err) {
     console.log(err);
     return null;
@@ -52,7 +28,5 @@ const fetchRandomPost = async () => {
 
 module.exports = {
   fetchSpotifyPlaylist,
-  fetchApplePlaylist,
-  fetchRandomTodo,
-  fetchRandomPost
+  fetchApplePlaylist
 }

@@ -1,5 +1,9 @@
 const { fetchApplePlaylist, fetchSpotifyPlaylist } = require('./playlist_api_util');
 
+// Can load sample API responses below for offline testing purposes
+// const applePlaylist = require('./sample_apple_res');
+// const spotifyPlaylist = require('./sample_spotify_res');
+
 const tracksInCommon = async (spotifyPlaylistId, applePlaylistId) => {
 
   // Fetch each playlist in parallel
@@ -8,7 +12,7 @@ const tracksInCommon = async (spotifyPlaylistId, applePlaylistId) => {
     fetchApplePlaylist(applePlaylistId)
   ]);
 
-  // Error-handling in case either API request fails
+  // Error-logging in case either API request fails
   if (!spotifyPlaylist.tracks || !applePlaylist.data[0]) {
     console.log("fetchSpotifyPlaylist return value:", spotifyPlaylist);
     console.log("fetchApplePlaylist return value:", applePlaylist);
@@ -38,4 +42,4 @@ const tracksInCommon = async (spotifyPlaylistId, applePlaylistId) => {
 
 }
 
-tracksInCommon('214235', '325235234');
+module.exports = tracksInCommon;
