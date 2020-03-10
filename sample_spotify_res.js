@@ -1,4 +1,4 @@
-const sampleJSONResponse2 = {
+const sampleSpotifyResponse = {
   "collaborative": false,
     "description": "A playlist for testing pourposes",
       "external_urls": {
@@ -1003,12 +1003,4 @@ const sampleJSONResponse2 = {
     "uri": "spotify:playlist:3cEYpjA9oz9GiPac4AsH4n"
 }
 
-const numOfTracks = sampleJSONResponse2.tracks.items.length;
-
-// for (let i = 0; i < numOfTracks; i++) {
-//   let currentTrack = sampleJSONResponse2.tracks.items[i];
-//   let currentTrackISRC = currentTrack.track.external_ids.isrc;
-//   console.log(currentTrackISRC);
-// }
-
-exports.tracks = sampleJSONResponse2;
+exports.tracks = sampleSpotifyResponse;

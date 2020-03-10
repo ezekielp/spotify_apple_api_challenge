@@ -1,48 +1,83 @@
-const spotifyPlaylist = require('./sample_spotify_res_2');
-const applePlaylist = require('./sample_apple_res');
-const fetch = require("node-fetch");
+// const spotifyPlaylist = require('./sample_spotify_res');
+// const applePlaylist = require('./sample_apple_res');
+const playlistAPIUtil = require('./playlist_api_util');
 
-const fetchPlaylists = async (spotifyPlaylistId, applePlaylistId) => {
+const fetchRandomData = async () => {
+
   try {
-    return await Promise.all([
-      fetch(
-        `https://api.spotify.com/v1/playlists/${spotifyPlaylistId}`
-      ).then(res => res.json()),
-      fetch(
-        `https://api.music.apple.com/v1/catalog/us/playlists/${applePlaylistId}`
-      ).then(res => res.json())
-    ]);
+
+    const todoRes = fetch(
+      "https://jsonplaceholder.typicode.com/todos/1"
+    );
+    const postRes = fetch("https://jsonplaceholder.typicode.com/posts/1");
+
+    const todo = await todoRes;
+    const post = await postRes;
+    // const todo = await todoRes.json();
+    // const post = await postRes.json();
+
+    return [await todo.json(), await post.json()];
+
+    // return await Promise.all([
+    //   fetch("https://jsonplaceholder.typicode.com/todos/1").then(res =>
+    //     res.json()
+    //   ),
+    //   fetch("https://jsonplaceholder.typicode.com/posts/1").then(res =>
+    //     res.json()
+    //   )
+    // ]);
+
   } catch (error) {
     console.log(error);
     return null;
   }
-};
+
+}
 
 const tracksInCommon = async (spotifyPlaylistId, applePlaylistId) => {
 
-  let result = 0;
-  // const [spotifyPlaylist, applePlaylist] = await fetchPlaylists(spotifyPlaylistId, applePlaylistId);
+  const [spotifyPlaylist, applePlaylist] = await Promise.all([
+    playlistAPIUtil.fetchSpotifyPlaylist(spotifyPlaylistId),
+    playlistAPIUtil.fetchApplePlaylist(applePlaylistId)
+  ]);
 
-  const spotifyTracks = spotifyPlaylist.tracks.tracks.items;
+  // Error-handling in case either API request fails
+  if (!spotifyPlaylist.tracks || !applePlaylist.data[0]) {
+    console.log("fetchSpotifyPlaylist return value:", spotifyPlaylist);
+    console.log("fetchApplePlaylist return value:", applePlaylist);
+    return null;
+  }
+
+  // const [randomTodo, randomPost] = await Promise.all([
+    //   playlistAPIUtil.fetchRandomTodo(),
+    //   playlistAPIUtil.fetchRandomPost()
+    // ]);
+
+    // console.log(randomTodo);
+    // console.log(randomPost);
+
+  const spotifyTracks = spotifyPlaylist.tracks.items;
   const spotifyTracksISRCs = new Set();
 
   spotifyTracks.forEach(spotifyTrack => {
     spotifyTracksISRCs.add(spotifyTrack.track.external_ids.isrc);
   })
   
-  const appleTracks = applePlaylist.tracks.data[0].relationships.tracks.data;
+  const appleTracks = applePlaylist.data[0].relationships.tracks.data;
   
+  let count = 0;
+
   appleTracks.forEach(appleTrack => {
     if (spotifyTracksISRCs.has(appleTrack.attributes.isrc)) {
-      result++;
+      count++;
     };
   })
 
-  return result;
+  return count;
 
 }
 
-tracksInCommon();
+tracksInCommon('214235', '325235234');
 
 
 
